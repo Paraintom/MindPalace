@@ -1,0 +1,60 @@
+<div class="section">
+    <div class="container">
+        <div class="row" ng-include="'header/sections.html'"></div>
+
+        <!--Transactions section-->
+        <div class="row">
+            <div class="col-md-8 col-sm-10 col-md-push-2 col-sm-push-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            <h4 ng-show="noteList.length > 0">{{noteList.length}} Notes</h4>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body table-responsive">
+                        <h3 ng-hide="noteList.length > 0">No Notes...</h3>
+                        <table class="table table-striped transactions" ng-show="noteList.length > 0">
+                            <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th class="hidden-xs">Created</th>
+                                <th class="hidden-xs">Updated</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="note in noteList track by $index">
+                                <td>
+                                    <span>{{note.title}}</span>
+                                </td>
+                                <td class="nowrap hidden-xs">
+                                    <span class="hidden-xs">{{note.creationTime| date:"d MMM yyyy"}}</span>
+                                    <span class="hidden-xs hidden-sm">{{note.creationTime| date:"'at' h:mma"}}</span>
+                                </td>
+                                <td class="nowrap hidden-xs">
+                                    <span class="hidden-xs">{{note.lastUpdated| date:"d MMM yyyy"}}</span>
+                                    <span class="hidden-xs hidden-sm">{{note.lastUpdated| date:"'at' h:mma"}}</span>
+                                </td>
+                                <td class="nowrap" style="min-width:88px">
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-default btn-sm"
+                                           href="#/project/{{projectId}}/{{note.id}}/transaction">
+                                            <i class="fa fa-lg fa-pencil"></i>
+                                        </a>
+
+                                        <a class="btn btn-default btn-sm" ng-click="deleteTransaction(note.id)">
+                                            <i class="fa fa-lg fa-times"></i>
+                                        </a>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html ng-app="mindPalaceApp">
+<!--Uncomment to activate caching! <html ng-app="mindPalaceApp" manifest="main.appcache">-->
+
+<head>
+    <title>Mind Palace</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Sometimes you need to manage expenses. You want it simple and easy. Welcome to Splitons...">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link rel="apple-touch-icon" href="img/icon.png" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+    <script type="text/javascript" src="external/jquery.min.js"></script>
+    <script type="text/javascript" src="external/bootstrap.min.js"></script>
+    <script type="text/javascript" src="external/bootbox.min.js"></script>
+    <script src="external/angular.js"></script>
+    <script src="external/angular-route.js"></script>
+    <script src="external/angular-resource.js"></script>
+    <script src="external/angular-notify.js"></script>
+    <script src="external/checklist-model.js"></script>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/angular-notify.css" rel="stylesheet" type="text/css">
+    <link href='css/SonsieOne.css' rel='stylesheet' type='text/css'>
+    <link href="css/splitons.css" rel="stylesheet" type="text/css">
+
+    <script src="app.js"></script>
+    <script src="external/linq.js"></script>
+    <script src="Factories/factories.js"></script>
+    <script src="Factories/currenciesFactory.js"></script>
+    <script src="Factories/synchFactory.js"></script>
+    <script src="newNote/NewNoteController.js"></script>
+    <script src="newNote/Balance.js"></script>
+    <script src="newNote/SettlementEntry.js"></script>
+    <script src="NoteListDisplay/NoteListController.js"></script>
+    <script src="listGroups/ListGroupsController.js"></script>
+    <script src="transactionUpdateOrCreate/TransactionController.js"></script>
+    <script src="header/SynchronizeController.js"></script>
+    <script src="header/ProjectNameController.js"></script>
+    <script src="RequestFlicker/RequestFlicker.js"></script>
+    <script src="FastFlicker/ShareViaFastFlicker.js"></script>
+    <script src="FastFlicker/FastFlickerClient.js"></script>
+    <script src="FastFlicker/IShareMechanism.js"></script>
+    <script src="RequestFlicker/ServiceLookup.js"></script>
+    <script src="RequestFlicker/ISynchronizer.js"></script>
+    <script src="RequestFlicker/SynchronizerViaRequestFlicker.js"></script>
+
+    <script src="dataObjects/Guid.js"></script>
+    <script src="dataObjects/LiteEvent.js"></script>
+    <script src="dataObjects/Project.js"></script>
+    <script src="dataObjects/Note.js"></script>
+
+    <script>
+        function setVersion() {
+            $.get("main.appcache", function (data) {
+                var lines = data.split("\n");
+                var version = lines[1].substring(1);
+                $('#version').text(version);
+            });
+        }
+        $(function () {
+            setVersion();
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-view></div>
+</body>
+</html>

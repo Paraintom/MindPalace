@@ -1,0 +1,79 @@
+<div class="section">
+    <div class="container text-center">
+        <div class="row heading">
+            <div class="col-md-12">
+                <p class="welcome">Welcome to</p>
+                <h1>The Mind Palace</h1>
+                <p class="hidden-xs">
+                    <span>We all want to remember a lot of things.</span>
+                    <span>Sometimes memory isn't enough...</span>
+                    <span>Welcome to the Mind Palace.</span>
+                </p>
+            </div>
+        </div>
+        <hr class="hidden-xs" />
+        <div class="row">
+            <h3>Your groups</h3>
+            <div class="col-md-8 col-sm-10 col-md-push-2 col-sm-push-1">
+                <table class="table table-striped table-hover projects">
+                    <tbody>
+                        <tr ng-repeat="project in projects">
+                            <td>
+                                <a href="#/project/{{project.id}}/newNote">{{project.name}}</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-default" ng-click="deleteProject(project.name,project.id)">
+                                    <i class="fa fa-close fa-fw text-danger"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-default" ng-click="sendViaFastFlicker(project.name,project.id)">
+                                    <span class="hidden-xs">Share</span>
+                                    <i class="fa fa-share-alt fa-fw"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-10 col-md-push-2 col-sm-push-1">
+                <div class="pull-right">
+                    <button class="btn btn-primary" ng-click="receiveProject()">
+                        Join <span class="hidden-xs">a Group</span>
+                        <i class='fa fa-share-alt fa-rotate-180 fa-fw fa-lg' />
+                    </button>
+
+                    <button class="btn btn-default" ng-click="createProject()">
+                        Create <span class="hidden-xs">a Group</span>
+                        <i class='fa fa-plus fa-fw fa-lg' />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-push-3">
+                <div class="pull-left">
+                    <form role="form" ng-submit="sendFeedback()">
+                        <button type="submit" class="btn btn-sm btn-default">
+                            <i class='fa fa-comments fa-fw fa-lg' />
+                            <span>
+                                Send feedback
+                            </span>
+                        </button>
+                    </form>
+                </div>
+                <div class="pull-right">
+                    <span class="version">
+                        Version <span id="version">{{version}}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

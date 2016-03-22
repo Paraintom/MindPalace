@@ -1,0 +1,40 @@
+<div class="section">
+    <div class="container">
+        <div class="row" ng-include="'header/sections.html'">
+        </div>
+
+        <!--Add Note section-->
+        <div class="row">
+            <div class="col-md-8 col-sm-10 col-md-push-2 col-sm-push-1">
+                <div class="panel panel-default">
+
+                    <form role="form" ng-init="ValidationError=false" ng-submit="ValidationError = validateAndAddNote()">
+                        <div class="alert alert-danger" role="alert" ng-show="ValidationError">
+                            <span class="sr-only">Error:</span>
+                            You should enter at least a title!
+                        </div>
+
+
+                        <div class="panel-heading">
+                            <div class="form-group">
+                                <label class="control-label">Title</label>
+                                <input class="form-control" placeholder="My first Mind palace Note!" ng-model="noteTitle" type="text" required>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="control-label">Content</label>
+                                <input class="form-control" placeholder="Train tickets" ng-model="noteContent" type="text">
+                            </div>
+                            <div class="button-bar">
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                                <a class="btn btn-default" ng-click="back()">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

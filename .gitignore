@@ -1,0 +1,12 @@
+.idea/
+*.map
+app.js
+header/*.js
+dataObjects/*.js
+Factories/*.js
+FastFlicker/*.js
+RequestFlicker/*.js
+listGroups/*.js
+groupBalances/*.js
+listTransactions/*.js
+transactionUpdateOrCreate/*.js
