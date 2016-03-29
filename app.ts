@@ -2,7 +2,7 @@
 ///<reference path="external/angular.d.ts"/>
 
 var mindPalaceApp = angular.module('mindPalaceApp', ['ngRoute',
-    'projectsFactory','currenciesFactory','synchFactory',
+    'projectsFactory','tagFactory','synchFactory',
     'checklist-model', 'cgNotify']);
 
 mindPalaceApp.config(['$routeProvider',

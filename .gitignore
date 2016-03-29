@@ -11,3 +11,4 @@ groupBalances/*.js
 listTransactions/*.js
 transactionUpdateOrCreate/*.js
 NoteListDisplay/*.js
+newNote/*.js

@@ -1,7 +1,6 @@
 ///<reference path="../external/linq.d.ts"/>
 ///<reference path="../external/angular.d.ts"/>
 ///<reference path="../dataObjects/Project.ts"/>
-///<reference path="../dataObjects/Transaction.ts"/>
 ///<reference path="../RequestFlicker/ISynchronizer.ts"/>
 ///<reference path="../RequestFlicker/SynchronizerViaRequestFlicker.ts"/>
 ///<reference path="../FastFlicker/ShareViaFastFlicker.ts"/>
