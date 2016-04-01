@@ -1,6 +1,6 @@
 ///<reference path="../external/linq.d.ts"/>
 ///<reference path="../external/angular.d.ts"/>
-///<reference path="../dataObjects/Tag.ts"/>
+///<reference path="../dataObjects/TagNode.ts"/>
 
 
 var tagFactory = angular.module('tagFactory', ['ngResource']);
@@ -9,15 +9,17 @@ tagFactory.factory('tagFactory', function () {
 
     var localStorageKey = "tagTree";
     var separator = "░";
-    var allTags: Tag[] = [];
+    var allTags: TagNode[] = [];
     init();
 
-    function addFakeTag(i : number, parent : number) : Tag {
+    function getFakeNodeTag(i : number) : TagNode {
         var result = new Tag();
         result.id = i;
-        result.parent = parent;
         result.name = "b;la"+i;
-        return result;
+        var nodeResult = new TagNode();
+        nodeResult.item = result;
+        nodeResult.children = [];
+        return nodeResult;
     }
 
     function init(){
@@ -26,19 +28,22 @@ tagFactory.factory('tagFactory', function () {
             if(tagsListString === null){
                 var rootTag = new Tag();
                 rootTag.name = "Default Tag";
-                rootTag.parent = -1;
-                allTags = [rootTag];
-                allTags.push(addFakeTag(1,0));
-                allTags.push(addFakeTag(2,0));
-                allTags.push(addFakeTag(3,0));
-                allTags.push(addFakeTag(4,1));
-                allTags.push(addFakeTag(5,1));
+                var rootNode = new TagNode();
+                rootNode.item = rootTag;
+                rootNode.children = [];
+                allTags = [rootNode];
+                var firstNode = getFakeNodeTag(1)
+                rootNode.children.push(firstNode);
+                rootNode.children.push(getFakeNodeTag(2));
+                rootNode.children.push(getFakeNodeTag(3));
+                firstNode.children.push(getFakeNodeTag(4));
+                firstNode.children.push(getFakeNodeTag(5));
             }
             else{
                 var tagList = tagsListString.split(separator);
                 for (var i = 0; i < tagList.length; i++) {
                     var tagJSon = JSON.parse(tagList[i]);
-                    var tag = new Tag().deserialize(tagJSon);
+                    var tag = new TagNode().deserialize(tagJSon);
                     allTags.push(tag);
                 }
             }
@@ -48,19 +53,12 @@ tagFactory.factory('tagFactory', function () {
     }
 
     return {
-        getAll: function () {
+        getAll: function () : TagNode[] {
             return allTags;
         },
-        add: function (tag : Tag) {
-            allTags.push(tag);
-            localStorage.setItem(localStorageKey, allTags.join(separator));
-        },
-        delete: function (tag : Tag) {
-            var index = allTags.indexOf(tag);
-            if(index != -1) {
-                allTags.splice(index, 1);
-                localStorage.setItem(localStorageKey, allTags.join(separator));
-            }
+        save: function (tagList : TagNode[]) {
+            allTags = tagList;
+            localStorage.setItem(localStorageKey, JSON.stringify(tagList));
         }
     }
 });

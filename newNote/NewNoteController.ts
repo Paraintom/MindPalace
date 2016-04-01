@@ -4,6 +4,7 @@
 ///<reference path="../dataObjects/Note.ts"/>
 ///<reference path="../external/bootbox.d.ts"/>
 ///<reference path="..\dataObjects\Tag.ts"/>
+///<reference path="..\dataObjects\TagNode.ts"/>
 
 declare var Btn: any;
 
@@ -14,43 +15,32 @@ angular.module('mindPalaceApp').controller(
             //We inherit from the parent (Refactoring)
             $controller('SynchronizeController', {$scope: $scope, $project : p});
             $scope.activeController = 'NewNoteController';
+
             $scope.generateTagTree = function() {
                 //skin-menu
 
                 var rootNode = new Btn('Browse').addClass('skin-root_menu');
-                /*rootNode.append(
-                    new Btn("Default tag").on('click', $scope.alertEvent('Id:'+0))
-                );*/
-                var generateBranch = function (processingTagNumber:number, processingNode) : number {
-                    var allTags = tagFactory.getAll();
-                    var nbChild = 0;
+                var allTags = tagFactory.getAll();
+
+                var extracted = function (allTags, parentNode) {
                     for (var i = 0; i < allTags.length; i++) {
-                        var currentTag = allTags[i];
-                        if (currentTag.parent == processingTagNumber) {
-                            //new leaf!
-                            nbChild++;
-                            var currentNode = new Btn(currentTag.name);
-                            var currentNodeChildNumber = generateBranch(currentTag.id, currentNode);
-                            if(currentNodeChildNumber == 0){
-                                currentNode.on('click', $scope.nodeClicked(currentTag));
-                            }
-                            /*else{
-                                alert("ignoring because of child"+currentNodeChildNumber+" (parent="+processingTagNumber);
-                            }*/
-                            processingNode.append(
-                                currentNode
-                            );
+                        var currentTagNode:TagNode = allTags[i];
+                        var currentNode = new Btn(currentTagNode.item.name);
+                        if (currentTagNode.children.length === 0) {
+                            currentNode.on('click', $scope.nodeClicked(currentTagNode.item));
                         }
+                        else
+                        {
+                            extracted(currentTagNode.children, currentNode);
+                        }
+
+                        parentNode.append(
+                            currentNode
+                        );
                     }
-                    //alert("id"+processingTagNumber+"returned "+nbChild);
-                    return nbChild;
                 };
-                generateBranch(0,rootNode);
-                // Appending the button menu to the DOM - `#main` element
+                extracted(allTags, rootNode);
                 rootNode.appendTo( '#tagTreeDiv' );
-
-
-
             }
 
             $scope.tagList = [];

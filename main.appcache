@@ -44,9 +44,6 @@ groupBalances/BalancesController.ts
 groupBalances/Balance.js
 groupBalances/Balance.js.map
 groupBalances/Balance.ts
-groupBalances/SettlementEntry.js.map
-groupBalances/SettlementEntry.ts
-groupBalances/SettlementEntry.js
 listTransactions/ListTransactionsController.js
 listTransactions/ListTransactionsController.js.map
 listTransactions/ListTransactionsController.ts

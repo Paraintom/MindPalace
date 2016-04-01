@@ -1,0 +1,19 @@
+<div class="section">
+    <div class="container">
+        <div class="row" ng-include="'header/sections.html'">
+        </div>
+
+        <!--Add Note section-->
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div ng-nestable ng-model="treeTest">
+                        <div>
+                            {{$item.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

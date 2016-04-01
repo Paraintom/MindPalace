@@ -60,6 +60,13 @@
                         New note
                     </span>
                 </a>
+                <a ng-class="activeController == 'tagTreeUpdaterController' ? 'btn btn-primary' : 'btn btn-default'"
+                   href="#/project/{{projectId}}/tags">
+                    <i class="fa fa-list fa-fw fa-lg" />
+                    <span class="hidden-xs">
+                        Tags
+                    </span>
+                </a>
                 <a ng-class="activeController == 'ListTransactionsController'  ? 'btn btn-primary' : 'btn btn-default'"
                    href="#/project/{{projectId}}/browse">
                     <i class="fa fa-list fa-fw fa-lg" />
