@@ -58,17 +58,17 @@ angular.module('mindPalaceApp').controller(
                 rootNode.appendTo( '#tagTreeDiv' );
             }
 
-            $scope.tagList = [0];
+            $scope.tagList = [];
 
             var addTagToNote = function (tag : Tag) {
-                if ($scope.tagList.indexOf(tag.id) === -1) {
-                    $scope.tagList.push(tag.id);
+                if ($scope.tagList.indexOf(tag) === -1) {
+                    $scope.tagList.push(tag);
                 }
             };
 
             $scope.unlinkTag = function (tag : Tag) {
                 //http://stackoverflow.com/questions/5767325/remove-a-particular-element-from-an-array-in-javascript
-                var index = $scope.tagList.indexOf(tag.id);
+                var index = $scope.tagList.indexOf(tag);
                 if (index > -1) {
                     $scope.tagList.splice(index, 1);
                 }
@@ -105,7 +105,7 @@ angular.module('mindPalaceApp').controller(
                 var newNote = new Note();
                 newNote.title = $scope.noteTitle;
                 newNote.content = $scope.noteContent;
-                newNote.tagIds = $scope.tagList;
+                newNote.tagIds = Enumerable.from<Tag>($scope.tagList).select(o=>o.id).toArray();
                 p.noteList.push(newNote);
                 projectsFactory.saveProject(p);
                 console.debug("New note added");
