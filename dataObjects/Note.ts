@@ -1,5 +1,6 @@
 ///<reference path="Guid.ts"/>
 ///<reference path="Serializable.ts"/>
+///<reference path="Tag.ts"/>
 
 /**
  * Created by Tom on 09/03/2015.
@@ -10,14 +11,14 @@ class Note implements Serializable<Note>{
     lastUpdated:number;
     title:string;
     content:string;
-    labels:number[];
+    tagIds:number[];
 
     constructor() {
         //It is a new Note, we WANT it to be synch!!
         var now = new Date().getTime();
         this.creationTime = now;
         this.lastUpdated = now * 2;
-        this.labels = [0];
+        this.tagIds = [0];
         this.id = Guid.newGuid();
     }
 
@@ -32,7 +33,7 @@ class Note implements Serializable<Note>{
         this.lastUpdated = this.extractDate(input.lastUpdated);
         this.title = input.title;
         this.content = input.content;
-        this.labels = input.labels;
+        this.tagIds = input.tagIds;
         return this;
     }
 
