@@ -21,8 +21,8 @@
                             <label class="control-label">Content</label>
                             <textarea  class="form-control" placeholder="Train tickets" rows="8" ng-model="noteContent">
                             </textarea><br>
-                            <label class="control-label">Tags</label><br>
-                            <span class="label label-default" ng-repeat="tag in tagList">{{tag.name}} </span>
+                            <label class="control-label">Tags click to remove link</label><br>
+                            <span class="label label-default" ng-repeat="tag in tagList" ng-click = "unlinkTag(tag)">{{tag.name}} </span>
 
                         </div>
                         <div class="button-bar">

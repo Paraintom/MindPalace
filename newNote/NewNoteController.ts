@@ -65,6 +65,15 @@ angular.module('mindPalaceApp').controller(
                     $scope.tagList.push(tag);
                 }
             };
+
+            $scope.unlinkTag = function (tag : Tag) {
+                //http://stackoverflow.com/questions/5767325/remove-a-particular-element-from-an-array-in-javascript
+                var index = $scope.tagList.indexOf(tag);
+                if (index > -1) {
+                    $scope.tagList.splice(index, 1);
+                }
+            };
+
             $scope.nodeClicked = function(tag : Tag) {
                 return function() {
                     addTagToNote(tag);
