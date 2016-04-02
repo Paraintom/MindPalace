@@ -5,7 +5,7 @@
 
         <!--Add Note section-->
         <div class="row">
-                <div class="panel panel-default">
+            <div class="panel panel-default">
 
                 <form role="form" ng-init="ValidationError=false" ng-submit="ValidationError = validateAndAddNote()">
                     <div class="alert alert-danger" role="alert" ng-show="ValidationError">
@@ -22,14 +22,25 @@
                             <textarea  class="form-control" placeholder="Train tickets" rows="8" ng-model="noteContent">
                             </textarea><br>
                             <label class="control-label">Tags</label><br>
-                            <span class="label label-primary" ng-click="showTagTree()">Add tag</span>
                             <span class="label label-default" ng-repeat="tag in tagList">{{tag.name}} </span>
-                            <span class="label label-default">Test tag2</span>
+
                         </div>
                         <div class="button-bar">
-                            <button type="submit" class="btn btn-primary">Confirm</button>
-                            <a class="btn btn-default" ng-click="back()">Cancel</a>
-                            <a class="btn btn-primary" ng-click="showTagTree()">Add tag</a>
+                            <button type="submit" class="btn btn-primary">Add note</button>
+                        </div>
+                    </div>
+                </form>
+
+                <form role="form" ng-submit="handleTagText()">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label">Create new Tag</label>
+                            <input class="form-control" placeholder="New tag label" ng-model="tagText" type="text">
+                        </div>
+                        <span class="label label-primary" ng-click="showTagTree()">Add existing tag</span>
+
+                        <div class="button-bar">
+                            <button type="submit" class="btn btn-primary">Test</button>
                         </div>
                     </div>
                 </form>
