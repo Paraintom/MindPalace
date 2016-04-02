@@ -10,4 +10,11 @@ angular.module('mindPalaceApp').controller(
             $controller('SynchronizeController', {$scope: $scope, $project : p});
             $scope.activeController = 'tagTreeUpdaterController';
             $scope.treeTest =  tagFactory.getAll();
+            $scope.$watchCollection('treeTest', onTreeChanged);
+
+            function onTreeChanged(newValue, oldValue){
+                if(newValue !== oldValue) {
+                    tagFactory.save($scope.treeTest);
+                }
+            };
         }]);

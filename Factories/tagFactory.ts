@@ -8,7 +8,6 @@ var tagFactory = angular.module('tagFactory', ['ngResource']);
 tagFactory.factory('tagFactory', function () {
 
     var localStorageKey = "tagTree";
-    var separator = "░";
     var maxId : number = 0;
     var allTags: TagNode[] = [];
     init();
@@ -26,9 +25,11 @@ tagFactory.factory('tagFactory', function () {
     function calculateMaxId():void {
         var explorerNodeId = function (node : TagNode) {
             var currentId = node.item.id;
-            for (var j = 0; j < node.children.length; j++) {
-                var children = node.children[j];
-                explorerNodeId(children);
+            if(node.children) {
+                for (var j = 0; j < node.children.length; j++) {
+                    var children = node.children[j];
+                    explorerNodeId(children);
+                }
             }
             if(currentId > maxId){
                 maxId = currentId;
@@ -51,20 +52,10 @@ tagFactory.factory('tagFactory', function () {
                 rootNode.item = rootTag;
                 rootNode.children = [];
                 allTags = [rootNode];
-                var firstNode = getFakeNodeTag(1)
-                rootNode.children.push(firstNode);
-                rootNode.children.push(getFakeNodeTag(2));
-                rootNode.children.push(getFakeNodeTag(3));
-                firstNode.children.push(getFakeNodeTag(4));
-                firstNode.children.push(getFakeNodeTag(5));
             }
             else{
-                var tagList = tagsListString.split(separator);
-                for (var i = 0; i < tagList.length; i++) {
-                    var tagJSon = JSON.parse(tagList[i]);
-                    var tag = new TagNode().deserialize(tagJSon);
-                    allTags.push(tag);
-                }
+                var tagList = JSON.parse(tagsListString);
+                allTags = tagList;
             }
             calculateMaxId();
         } catch (error) {
