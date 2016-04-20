@@ -81,39 +81,24 @@ class SynchronizerViaRequestFlicker implements ISynchronizer {
         var membersInvolved = [];
         for (var indexTransactionToUpdate in json.toUpdate) {
             var newTransaction = new Note().deserialize(json.toUpdate[indexTransactionToUpdate]);
-            var transactionIndex = p.transactions.map(function (e) {
+            var transactionIndex = p.noteList.map(function (e) {
                 return e.id;
             }).indexOf(newTransaction.id);
 
             if(transactionIndex != -1) {
-                var oldTransaction = p.transactions[transactionIndex];
+                var oldTransaction = p.noteList[transactionIndex];
                 //We ignore the last(s) transactions
                 if (newTransaction.lastUpdated == oldTransaction.lastUpdated)
                     continue;
 
-                p.transactions.splice(transactionIndex, 1);
-                console.log('transac update, was ' + oldTransaction.lastUpdated + 'new ' + newTransaction.lastUpdated + ' for ' + oldTransaction.comment);
+                p.noteList.splice(transactionIndex, 1);
+                console.log('transac update, was ' + oldTransaction.lastUpdated + 'new ' + newTransaction.lastUpdated + ' for ' + oldTransaction.title);
             }
             else{
-                console.log('new transac '+newTransaction.comment);
+                console.log('new transac '+newTransaction.title);
             }
-            p.transactions.push(newTransaction);
+            p.noteList.push(newTransaction);
             updatedNumber++;
-
-            //alert('New transaction '+JSON.stringify(newTransaction));
-            //We need to synchronize the members from to and from members
-            if (p.members.indexOf(newTransaction.from) == -1) {
-                p.members.push(newTransaction.from);
-                //alert('adding member '+newTransaction.from);
-            }
-
-            for (var indexPotential in newTransaction.to) {
-                var potentialNewMember = newTransaction.to[indexPotential];
-                if (p.members.indexOf(potentialNewMember) == -1) {
-                    p.members.push(potentialNewMember);
-                    //alert('adding member '+potentialNewMember);
-                }
-            }
         }
         p.lastUpdated = json.lastUpdated;
         var syncInfo = (updatedNumber == 0) ? "(No new update)" : "("+updatedNumber+" new update(s))";
@@ -133,7 +118,7 @@ class SynchronizerViaRequestFlicker implements ISynchronizer {
     private getToUpdate(p:Project) {
         var newResults = this.getLocalChanges(p);
         if(newResults.length == 0){
-            newResults = Enumerable.from<Note>(p.transactions).where(function (y) {
+            newResults = Enumerable.from<Note>(p.noteList).where(function (y) {
                 var result = y.lastUpdated == p.lastUpdated;
                 return result;
             }).toArray().splice(0);
