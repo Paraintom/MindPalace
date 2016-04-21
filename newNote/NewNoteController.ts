@@ -41,7 +41,7 @@ angular.module('mindPalaceApp').controller(
                     for (var i = 0; i < allTags.length; i++) {
                         var currentTagNode:TagNode = allTags[i];
                         var currentNode = new Btn(currentTagNode.item.name);
-                        if (currentTagNode.children.length === 0) {
+                        if (!currentTagNode.children || currentTagNode.children.length === 0) {
                             currentNode.on('click', $scope.nodeClicked(currentTagNode.item));
                         }
                         else
