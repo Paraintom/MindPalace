@@ -44,6 +44,7 @@ tagFactory.factory('tagFactory', function () {
 
     function init(){
         try {
+            console.debug("Reading tags...");
             var tagsListString = localStorage.getItem(localStorageKey);
             if(tagsListString === null){
                 var rootTag = new Tag();
@@ -77,11 +78,13 @@ tagFactory.factory('tagFactory', function () {
             tagNode.children = [];
             tagNode.item = newTag;
             allTags.push(tagNode);
+            this.save(allTags)
             return newTag;
         },
         save: function (tagList : TagNode[]) {
             allTags = tagList;
             localStorage.setItem(localStorageKey, JSON.stringify(tagList));
+            console.debug("save has been called");
         }
     }
 });

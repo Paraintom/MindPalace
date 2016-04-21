@@ -22,7 +22,7 @@ angular.module('mindPalaceApp').controller(
 
             //Now it is automatic on controller load.
             $scope.synchronize = function () {
-                console.debug('Not enabled yet!');
+                //console.debug('Not enabled yet!');
                 return;
                 if($scope.synchronizing){
                     console.debug('Already Synchronising, ignoring');
