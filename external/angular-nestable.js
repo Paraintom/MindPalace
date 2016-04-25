@@ -55,8 +55,8 @@
 ;(function(window, document, angular, undefined){
 	angular.module('ng-nestable', [])
 		.provider('$nestable', function(){
-			var modelName = '$item';
-			var itemProperty = 'item';
+			var modelName = '$tag';
+			var itemProperty = 'tag';
 			var childrenProperty = 'children';
 			var collapseAllOnStart = false;
 			var defaultOptions = {};

@@ -4,11 +4,11 @@
  */
 class TagNode implements Serializable<TagNode> {
 
-    item:Tag;
+    tag:Tag;
     children:TagNode[];
 
     deserialize(input):TagNode {
-        this.item = input.item;
+        this.tag = input.tag;
         this.children = input.children;
         return this;
     }

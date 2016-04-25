@@ -1,5 +1,6 @@
 ///<reference path="../external/angular.d.ts"/>
 ///<reference path="../dataObjects/Project.ts"/>
+///<reference path="..\dataObjects\TagNode.ts"/>
 
 
 angular.module('mindPalaceApp').controller(
@@ -13,8 +14,30 @@ angular.module('mindPalaceApp').controller(
             $scope.$watchCollection('treeTest', onTreeChanged);
 
             function onTreeChanged(newValue, oldValue){
+                function handleChildren(itemList, tagList) {
+                    if(!itemList){
+                        return;
+                    }
+
+                    itemList.forEach(item => {
+                        console.debug('here '+JSON.stringify(item));
+                        var tagNode = new TagNode();
+                        tagNode.tag = new Tag();
+                        tagNode.tag.id = item.item.id;
+                        tagNode.tag.name = item.item.name;
+                        tagNode.children = [];
+                        console.debug('tagNote '+JSON.stringify(tagNode));
+                        handleChildren(item.children, tagNode.children);
+                        console.debug('tagNote '+JSON.stringify(tagNode));
+                        tagList.push(tagNode);
+                    });
+                }
+
                 if(newValue !== oldValue) {
-                    tagFactory.save($scope.treeTest);
+                    var tagListWithItem = $scope.treeTest;
+                    var tagList = [];
+                    handleChildren($scope.treeTest, tagList);
+                    tagFactory.save(tagList);
                 }
             };
         }]);

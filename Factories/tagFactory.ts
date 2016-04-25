@@ -17,14 +17,14 @@ tagFactory.factory('tagFactory', function () {
         result.id = i;
         result.name = "b;la"+i;
         var nodeResult = new TagNode();
-        nodeResult.item = result;
+        nodeResult.tag = result;
         nodeResult.children = [];
         return nodeResult;
     }
 
     function calculateMaxId():void {
         var explorerNodeId = function (node : TagNode) {
-            var currentId = node.item.id;
+            var currentId = node.tag.id;
             if(node.children) {
                 for (var j = 0; j < node.children.length; j++) {
                     var children = node.children[j];
@@ -42,7 +42,7 @@ tagFactory.factory('tagFactory', function () {
         //alert('maxId = '+maxId);
     }
 
-    function init(){
+    function init(stop){
         try {
             console.debug("Reading tags...");
             var tagsListString = localStorage.getItem(localStorageKey);
@@ -50,21 +50,35 @@ tagFactory.factory('tagFactory', function () {
                 var rootTag = new Tag();
                 rootTag.name = "Default Tag";
                 var rootNode = new TagNode();
-                rootNode.item = rootTag;
+                rootNode.tag = rootTag;
                 rootNode.children = [];
                 allTags = [rootNode];
             }
             else{
+                console.debug(tagsListString);
                 var tagList = JSON.parse(tagsListString);
+                //console.debug(tagList[0].tag);
+                if(tagList[0].tag.id === undefined){
+                    throw new Error("Id cannot be read!");
+                }
                 allTags = tagList;
             }
             calculateMaxId();
         } catch (error) {
             this.console.error("LocalStorageService::tagFactory::init: can't retrieve the tree of tags. Error: " + error);
+            //TODO REMOVE THIS CLEANUP WHEN STABLE!
+            if(!stop){
+                localStorage.removeItem(localStorageKey);
+                init(true);
+            }
         }
     }
 
     return {
+        getDefaultTag: function () : Tag {
+            var result = Enumerable.from<TagNode>(this.getAll()).where(o=> o.tag.id == 0).firstOrDefault();
+            return result.tag;
+        },
         getAll: function () : TagNode[] {
             return allTags;
         },
@@ -76,15 +90,16 @@ tagFactory.factory('tagFactory', function () {
 
             var tagNode = new TagNode();
             tagNode.children = [];
-            tagNode.item = newTag;
+            tagNode.tag = newTag;
             allTags.push(tagNode);
             this.save(allTags)
             return newTag;
         },
         save: function (tagList : TagNode[]) {
             allTags = tagList;
-            localStorage.setItem(localStorageKey, JSON.stringify(tagList));
-            console.debug("save has been called");
+            var toSave = JSON.stringify(tagList);
+            localStorage.setItem(localStorageKey, toSave);
+            console.debug("save has been called"+toSave);
         }
     }
 });

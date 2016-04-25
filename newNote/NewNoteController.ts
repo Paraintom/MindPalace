@@ -19,14 +19,14 @@ angular.module('mindPalaceApp').controller(
             $scope.handleTagText = function() {
                 var newTagText = $scope.tagText;
                 console.debug('handling TagText '+ newTagText);
-                var existingTag = Enumerable.from<TagNode>(tagFactory.getAll()).where(o=> o.item.name == newTagText).firstOrDefault();
+                var existingTag = Enumerable.from<TagNode>(tagFactory.getAll()).where(o=> o.tag.name == newTagText).firstOrDefault();
                 var tagToAdd : Tag;
                 if(!existingTag){
                     tagToAdd = tagFactory.getNewTag(newTagText);
                 }
                 else
                 {
-                    tagToAdd = existingTag.item;
+                    tagToAdd = existingTag.tag;
                 }
                 addTagToNote(tagToAdd);
             }
@@ -40,9 +40,9 @@ angular.module('mindPalaceApp').controller(
                 var extracted = function (allTags, parentNode) {
                     for (var i = 0; i < allTags.length; i++) {
                         var currentTagNode:TagNode = allTags[i];
-                        var currentNode = new Btn(currentTagNode.item.name);
+                        var currentNode = new Btn(currentTagNode.tag.name);
                         if (!currentTagNode.children || currentTagNode.children.length === 0) {
-                            currentNode.on('click', $scope.nodeClicked(currentTagNode.item));
+                            currentNode.on('click', $scope.nodeClicked(currentTagNode.tag));
                         }
                         else
                         {
@@ -65,6 +65,7 @@ angular.module('mindPalaceApp').controller(
                     $scope.tagList.push(tag);
                 }
             };
+            addTagToNote(tagFactory.getDefaultTag());
 
             $scope.unlinkTag = function (tag : Tag) {
                 //http://stackoverflow.com/questions/5767325/remove-a-particular-element-from-an-array-in-javascript
