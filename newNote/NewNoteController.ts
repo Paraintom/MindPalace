@@ -16,8 +16,7 @@ angular.module('mindPalaceApp').controller(
             $controller('SynchronizeController', {$scope: $scope, $project : p});
             $scope.activeController = 'NewNoteController';
 
-            $scope.handleTagText = function() {
-                var newTagText = $scope.tagText;
+            $scope.handleTagText = function(newTagText) {
                 console.debug('handling TagText '+ newTagText);
                 var existingTag = Enumerable.from<TagNode>(tagFactory.getAll()).where(o=> o.tag.name == newTagText).firstOrDefault();
                 var tagToAdd : Tag;
@@ -82,6 +81,20 @@ angular.module('mindPalaceApp').controller(
                     (!$scope.$$phase)
                         $scope.$apply();
                 };
+            }
+
+            $scope.addNewTag = function() {
+                bootbox.prompt({
+                    title: 'Create a Tag',
+                    placeholder: 'Enter tag name...',
+                    callback: function (result) {
+                        if (result !== null) {
+                            $scope.$apply(function() {
+                                $scope.handleTagText(result);
+                            });
+                        }
+                    }
+                });
             }
             $scope.showTagTree = function() {
                 bootbox.dialog({

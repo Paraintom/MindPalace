@@ -20,15 +20,15 @@ angular.module('mindPalaceApp').controller(
                     }
 
                     itemList.forEach(item => {
-                        console.debug('here '+JSON.stringify(item));
+                        //console.debug('here '+JSON.stringify(item));
                         var tagNode = new TagNode();
                         tagNode.tag = new Tag();
                         tagNode.tag.id = item.item.id;
                         tagNode.tag.name = item.item.name;
                         tagNode.children = [];
-                        console.debug('tagNote '+JSON.stringify(tagNode));
+                        //console.debug('tagNote '+JSON.stringify(tagNode));
                         handleChildren(item.children, tagNode.children);
-                        console.debug('tagNote '+JSON.stringify(tagNode));
+                        //console.debug('tagNote '+JSON.stringify(tagNode));
                         tagList.push(tagNode);
                     });
                 }

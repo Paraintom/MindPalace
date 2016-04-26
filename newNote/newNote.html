@@ -21,26 +21,14 @@
                             <label class="control-label">Content</label>
                             <textarea  class="form-control" placeholder="Train tickets" rows="8" ng-model="noteContent">
                             </textarea><br>
-                            <label class="control-label">Tags click to remove link</label><br>
+                            <label class="control-label">Tags management (click to remove tag)</label><br>
+                            <span class="label label-primary" ng-click="addNewTag()">Add new tag</span>
+                            <span class="label label-primary" ng-click="showTagTree()">Add existing tag</span>
                             <span class="label label-default" ng-repeat="tag in tagList" ng-click = "unlinkTag(tag)">{{tag.name}} </span>
 
                         </div>
                         <div class="button-bar">
                             <button type="submit" class="btn btn-primary">Add note</button>
-                        </div>
-                    </div>
-                </form>
-
-                <form role="form" ng-submit="handleTagText()">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="control-label">Create new Tag</label>
-                            <input class="form-control" placeholder="New tag label" ng-model="tagText" type="text">
-                        </div>
-                        <span class="label label-primary" ng-click="showTagTree()">Add existing tag</span>
-
-                        <div class="button-bar">
-                            <button type="submit" class="btn btn-primary">Test</button>
                         </div>
                     </div>
                 </form>

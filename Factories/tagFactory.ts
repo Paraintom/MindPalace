@@ -55,7 +55,7 @@ tagFactory.factory('tagFactory', function () {
                 allTags = [rootNode];
             }
             else{
-                console.debug(tagsListString);
+                //console.debug(tagsListString);
                 var tagList = JSON.parse(tagsListString);
                 //console.debug(tagList[0].tag);
                 if(tagList[0].tag.id === undefined){
@@ -99,7 +99,7 @@ tagFactory.factory('tagFactory', function () {
             allTags = tagList;
             var toSave = JSON.stringify(tagList);
             localStorage.setItem(localStorageKey, toSave);
-            console.debug("save has been called"+toSave);
+            //console.debug("save has been called"+toSave);
         }
     }
 });
