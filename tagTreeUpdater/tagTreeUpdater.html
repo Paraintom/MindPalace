@@ -7,16 +7,17 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div ng-nestable ng-model="treeTest">
+
+                    <div ng-nestable ng-model="treeDelete" style="background-color: #1f205b; min-height: 50px; padding : 10px;">
                         <div>
                             {{$tag.name}}
                         </div>
                     </div>
-                    <!--<h1>list1</h1>
-
-                    <div>
-                        {{treeTest}}
-                    </div>-->
+                    <div ng-nestable ng-model="treeTagProject">
+                        <div>
+                            {{$tag.name}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -10,8 +10,15 @@ angular.module('mindPalaceApp').controller(
             //We inherit from the parent (Refactoring)
             $controller('SynchronizeController', {$scope: $scope, $project : p});
             $scope.activeController = 'tagTreeUpdaterController';
-            $scope.treeTest =  tagFactory.getAll();
-            $scope.$watchCollection('treeTest', onTreeChanged);
+            $scope.treeDelete = [];
+            var deleteTagNode = new TagNode();
+            deleteTagNode.children = [];
+            deleteTagNode.tag = new Tag();
+            deleteTagNode.tag.id = -1;
+            deleteTagNode.tag.name = "Delete tags dragging them in this section!";
+            $scope.treeDelete.push(deleteTagNode);
+            $scope.treeTagProject =  tagFactory.getAll();
+            $scope.$watchCollection('treeTagProject', onTreeChanged);
 
             function onTreeChanged(newValue, oldValue){
                 function handleChildren(itemList, tagList) {
@@ -34,9 +41,9 @@ angular.module('mindPalaceApp').controller(
                 }
 
                 if(newValue !== oldValue) {
-                    var tagListWithItem = $scope.treeTest;
+                    var tagListWithItem = $scope.treeTagProject;
                     var tagList = [];
-                    handleChildren($scope.treeTest, tagList);
+                    handleChildren($scope.treeTagProject, tagList);
                     tagFactory.save(tagList);
                 }
             };
