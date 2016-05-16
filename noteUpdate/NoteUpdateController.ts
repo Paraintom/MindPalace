@@ -2,10 +2,13 @@
 ///<reference path="../external/angular.d.ts"/>
 ///<reference path="../dataObjects/Project.ts"/>
 angular.module('mindPalaceApp').controller(
-    'NoteUpdateController', ['$scope', '$routeParams', '$location', 'projectsFactory', 'tagFactory',
-        function ($scope, $routeParams, $location, projectsFactory, tagFactory) {
+    'NoteUpdateController', ['$scope', '$routeParams', '$location', 'projectsFactory', 'tagFactory', '$controller',
+        function ($scope, $routeParams, $location, projectsFactory, tagFactory, $controller) {
             var project = projectsFactory.getProject($routeParams.projectId);
             var note = getNote(project,$routeParams.noteId);
+
+            //console.debug('in child'+$scope.tagList.length);
+            $controller('TagController', {$scope: $scope, $initialTagIds : note.tagIds});
 
             $scope.projectName = project.name;
 
@@ -13,16 +16,14 @@ angular.module('mindPalaceApp').controller(
             $scope.content = note.content;
             $scope.creationTime = note.creationTime;
             $scope.updateTime = note.lastUpdated;
-           
 
 
             $scope.saveNote = function() {
-                if(isNaN($scope.amount)){
-                    return true;
-                }
+                //console.debug("saveNote called");
                 note.title = $scope.title;
                 note.content = $scope.content;
-
+                note.tagIds = Enumerable.from<Tag>($scope.tagList).select(o=>o.id).toArray();
+                console.debug("her"+note.tagIds.length);
                 if($routeParams.transactionId == 0/*mean a new transaction*/) {
                     project.transactions.push(note);
                 }

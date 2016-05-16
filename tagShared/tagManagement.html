@@ -1,0 +1,4 @@
+<label class="control-label">Tags management (click to remove tag)</label><br>
+<span class="label label-primary" ng-click="addNewTag()">Add new tag</span>
+<span class="label label-primary" ng-click="showTagTree()">Add existing tag</span>
+<span class="label label-default" ng-repeat="tag in tagList" ng-click="removeTagLink(tag)">{{tag.name}} </span>

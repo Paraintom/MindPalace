@@ -21,11 +21,7 @@
                             <label class="control-label">Content</label>
                             <textarea  class="form-control" placeholder="Train tickets" rows="8" ng-model="noteContent">
                             </textarea><br>
-                            <label class="control-label">Tags management (click to remove tag)</label><br>
-                            <span class="label label-primary" ng-click="addNewTag()">Add new tag</span>
-                            <span class="label label-primary" ng-click="showTagTree()">Add existing tag</span>
-                            <span class="label label-default" ng-repeat="tag in tagList" ng-click = "unlinkTag(tag)">{{tag.name}} </span>
-
+                            <div ng-include="'tagShared/tagManagement.html'">
                         </div>
                         <div class="button-bar">
                             <button type="submit" class="btn btn-primary">Add note</button>
