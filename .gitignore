@@ -13,3 +13,4 @@ transactionUpdateOrCreate/*.js
 NoteListDisplay/*.js
 tagTreeUpdater/*.js
 newNote/*.js
+noteUpdate/*.js

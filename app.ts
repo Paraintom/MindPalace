@@ -24,6 +24,10 @@ mindPalaceApp.config(['$routeProvider',
                 templateUrl: 'tagTreeUpdater/tagTreeUpdater.html',
                 controller: 'tagTreeUpdaterController'
             }).
+            when('/project/:projectId/:noteId', {
+                templateUrl: 'noteUpdate/noteUpdate.html',
+                controller: 'NoteUpdateController'
+            }).
             otherwise({
                 redirectTo: '/'
             });

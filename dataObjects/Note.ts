@@ -17,6 +17,7 @@ class Note implements Serializable<Note>{
         //It is a new Note, we WANT it to be synch!!
         var now = new Date().getTime();
         this.creationTime = now;
+        //todo Hum... Not sure for that anymore!
         this.lastUpdated = now * 2;
         this.tagIds = [0];
         this.id = Guid.newGuid();
